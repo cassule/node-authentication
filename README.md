@@ -18,22 +18,24 @@ Passo a passo de como montar uma autenticação decente.
 
 - Vamos criar um arquivo na pasta src/server.js
   ``
+  {
   import express from 'express';
 
   const app = express();
 
   app.get('/sessions', (request, response) => {
 
-      const { email, password } = request.body;
+        const { email, password } = request.body;
 
 
-      return response.status(200).json({ message: 'success'});
+        return response.status(200).json({ message: 'success'});
 
-  });
+      });
 
   app.listen(3333, () => {
   console.log('listen in port 3333');
   });
+  }
   ``
 
   - Até aqui já temos uma aplicação básica com Node e Typescript funcional
@@ -45,7 +47,7 @@ Passo a passo de como montar uma autenticação decente.
 - Usar docker: https://www.notion.so/Instalando-Docker-6290d9994b0b4555a153576a1d97bee2
 - `yarn add typeorm pg` para configurarmos o typeorm precisamos criar um arquivo no dir raiz ormconfig.json
 
-` { type: "postgres", host: "localhost", port: 5432, username: "root", password: "root", database: "backend" } `
+`{ type: "postgres", host: "localhost", port: 5432, username: "root", password: "root", database: "backend" }`
 
 - Vamos criar um diretório database em src e vamos criar um arquivo index.js
   ``
