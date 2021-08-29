@@ -17,26 +17,22 @@ Passo a passo de como montar uma autenticação decente.
 3. Configurar as rotas da aplicação
 
 - Vamos criar um arquivo na pasta src/server.js
-  ``
-  {
-  import express from 'express';
+
+  ```js
+  import express from "express";
 
   const app = express();
 
-  app.get('/sessions', (request, response) => {
+  app.get("/sessions", (request, response) => {
+    const { email, password } = request.body;
 
-        const { email, password } = request.body;
-
-
-        return response.status(200).json({ message: 'success'});
-
-      });
+    return response.status(200).json({ message: "success" });
+  });
 
   app.listen(3333, () => {
-  console.log('listen in port 3333');
+    console.log("listen in port 3333");
   });
-  }
-  ``
+  ```
 
   - Até aqui já temos uma aplicação básica com Node e Typescript funcional
   - Vamos add como dependência de desenvolvimento o o ts node-dev `yarn add ts-node-dev -D`
@@ -47,15 +43,24 @@ Passo a passo de como montar uma autenticação decente.
 - Usar docker: https://www.notion.so/Instalando-Docker-6290d9994b0b4555a153576a1d97bee2
 - `yarn add typeorm pg` para configurarmos o typeorm precisamos criar um arquivo no dir raiz ormconfig.json
 
-`{ type: "postgres", host: "localhost", port: 5432, username: "root", password: "root", database: "backend" }`
+```json
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "root",
+  "password": "root",
+  "database": "backend"
+}
+```
 
 - Vamos criar um diretório database em src e vamos criar um arquivo index.js
-  ``
-  import { createConnection } from 'typeorm';
+
+  ```js
+  import { createConnection } from "typeorm";
 
   createConnection();
-
-  ``
+  ```
 
 - No nosso arquivo express vamos adicionar o a nossa conexão com o banco de dados.
   ` import './database'`
@@ -63,10 +68,18 @@ Passo a passo de como montar uma autenticação decente.
 
 - Vamos configurar as migrations:
   Na pasta database vamos criar a pasta migrations
-  ` { migrations: [ "./src/database/migrations/*.ts" ], "cli": { "migrationDir": "./src/database/migrations" } }`
+
+  ```json
+  {
+    "migrations": ["./src/database/migrations/*.ts"],
+    "cli": {
+      "migrationDir": "./src/database/migrations"
+    }
+  }
+  ```
 
 - Editar o package.json em script adicionar
-  ` "typeorm": "ts-node-dev node_modules/typeorm/cli.js"`
+  `"typeorm": "ts-node-dev node_modules/typeorm/cli.js"`
 
 - Vamos criar uma migration: Explicar as vantagens da migration
   `yarn typeorm migration:create -n CreateUser`
